@@ -1,0 +1,128 @@
+@charset "utf-8";
+
+/*css reset*/
+
+* {
+  /* outline: 1px solid red; */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+/* header */
+.wrap .header {
+  display: flex;
+  justify-content: center;
+}
+
+.wrap .header .header_inner {
+  width: 70vw;
+  height: 25vh;
+}
+
+/* nav */
+.wrap .nav {
+  display: flex;
+  justify-content: center;
+}
+
+.wrap .nav .nav_inner {
+  display: flex;
+  justify-content: center;
+  width: 70vw;
+  background-color: beige;
+}
+
+.wrap .nav .nav_inner .nav_menu {
+  flex-grow: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wrap .nav .nav_inner .nav_account {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: bisque;
+}
+
+.wrap .nav .nav_inner .nav_account .account_inner {
+  display: flex;
+  flex-direction: column;
+}
+/* main */
+
+.wrap .main {
+  display: flex;
+  justify-content: center;
+}
+
+.wrap .main .main_inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrap .main .main_inner .container {
+  width: 70vw;
+  height: 50vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.wrap .main .main_inner .container .item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap .main .main_inner .container .item2 {
+  background-color: #fff;
+}
+
+.wrap .main .main_inner .container .item3 {
+  background-color: #eee;
+}
+
+.wrap .main .main_inner .container .item4 {
+  background-color: #ddd;
+}
+
+.wrap .main .main_inner .container .item5 {
+  background-color: #ccc;
+}
+
+.wrap .main .main_inner .container .item6 {
+  background-color: #bbb;
+}
+
+.wrap .main .main_inner .container .item7 {
+  background-color: #aaa;
+}
+
+.wrap .main .main_inner .container .item8 {
+  background-color: #999;
+}
+
+.wrap .main .main_inner .container .item9 {
+  background-color: #888;
+}
+
+/* footer */
+
+.wrap .footer {
+  display: flex;
+  justify-content: center;
+}
+
+.wrap .footer .footer_inner {
+  width: 70vw;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: burlywood;
+}

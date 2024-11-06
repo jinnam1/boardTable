@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글 수정</title>
+    <script defer src="/js/boardtable/update.js" type="module"></script>
+    <link rel="stylesheet" href="/css/boardtable/update.css" />
+    <link rel="stylesheet" href="/css/error.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="container">
+        <div class="header">
+          <h3>게시글 수정</h3>
+        </div>
+        <form action="" method="post" id="updateForm" th:object="${updateForm}">
+          <div class="id_wrap">
+            <div class="userId_wrap">
+              <label for="">게시글 번호</label>
+              <input
+                type="text"
+                name="userId"
+                th:value="${updateForm.userId}"
+                id="userId"
+                readonly
+              />
+            </div>
+            <div class="title_wrap">
+              <label for="">제목</label>
+              <input
+                type="text"
+                name="title"
+                th:value="${updateForm.title}"
+                id="title"
+              />
+              <p class="err" id="errTitle"></p>
+              <p
+                class="err"
+                th:each="err:${#fields.errors('title')}"
+                th:text="${err}"
+              ></p>
+            </div>
+            <div class="name_wrap">
+              <label for="">작성자</label>
+              <input
+                type="text"
+                name="userName"
+                th:value="${updateForm.userName}"
+                id="userName"
+              />
+              <p class="err" id="errUserN"></p>
+              <p
+                class="err"
+                th:each="err:${#fields.errors('userName')}"
+                th:text="${err}"
+              ></p>
+            </div>
+          </div>
+          <div class="content_wrap">
+            <label for="">내용</label>
+            <textarea
+              name="content"
+              th:text="${updateForm.content}"
+              id="content"
+            ></textarea>
+            <p class="err" id="errContent"></p>
+            <p
+              class="err"
+              th:each="err:${#fields.errors('content')}"
+              th:text="${err}"
+            ></p>
+          </div>
+          <div class="date_wrap">
+            <label for="">작성날짜</label>
+            <input
+              type="text"
+              name="createdAt"
+              th:value="${updateForm.createdAt}"
+              id="createdAt"
+              readonly
+            />
+            <label for="">수정날짜</label>
+            <input
+              type="text"
+              name="updatedAt"
+              th:value="${updateForm.updatedAt}"
+              id="updatedAt"
+              readonly
+            />
+          </div>
+        </form>
+        <div class="btn_wrap">
+          <button id="btnSave">저장</button>
+          <button id="btnCancel">취소</button>
+          <button id="btnAll">목록</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

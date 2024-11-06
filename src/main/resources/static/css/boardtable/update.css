@@ -1,0 +1,94 @@
+@charset 'utf-8';
+
+/* css 리셋*/
+* {
+  /* outline: 1px solid red; */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: 0;
+  width: 45px;
+  height: 25px;
+  color: #fff;
+  background-color: #52e454;
+}
+
+input[type="text"] {
+  padding-left: 5px;
+}
+/* wrap */
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a2ffff;
+}
+
+/* 전체적으로 보여줄 폼 부분*/
+
+.wrap .container {
+  width: 70vw;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.wrap .container input[type="text"][readonly] {
+  background-color: #f0f0f0;
+}
+
+/* 제목 부분*/
+
+.wrap .container .header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* 글번호,제목,작성자명이 들어간 부분*/
+
+.wrap .container .id_wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.wrap .container .id_wrap .title_wrap input[type="text"] {
+  width: 300px;
+}
+
+#userId {
+  width: 70px;
+}
+
+/* 내용 부분이 들어간 부분*/
+
+.wrap .container .content_wrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.wrap .container .content_wrap textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 날짜들이랑 버튼 오른쪽으론 넘기기*/
+
+.wrap .container .date_wrap {
+  justify-self: flex-end;
+  margin-bottom: 10px;
+}
+
+.wrap .container .btn_wrap {
+  align-self: flex-end;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시판 초기화면</title>
+    <link rel="stylesheet" href="/css/boardtable/all.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="wrap_inner">
+        <div class="header">
+          <h3>게시판</h3>
+        </div>
+        <table id="table">
+          <thead id="head">
+            <tr>
+              <th class="id">번호</th>
+              <th class="title">제목</th>
+              <th class="name">작성자</th>
+              <th class="c_date">작성된날짜</th>
+              <th class="u_date">수정된날짜</th>
+            </tr>
+          </thead>
+          <tbody th:each="allForm : ${allFormsList}" id="body">
+            <tr>
+              <td class="id" th:text="${allForm.userId}">
+                게시글 번호가 들어갑니다
+              </td>
+              <td class="title">
+                <a
+                  th:href="@{/boardtables/{id}/detail(id=${allForm.userId})}"
+                  th:text="${allForm.title}"
+                  >글제목이 들어갑니다</a
+                >
+              </td>
+              <td class="name" th:text="${allForm.userName}">
+                작성자 이름이 들어갑니다
+              </td>
+              <td class="c_date" th:text="${allForm.createdAt}">
+                작성일이 들어갑니다.
+              </td>
+              <td class="u_date" th:text="${allForm.updatedAt}">
+                수정일이 들어갑니다.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="btn_wrap">
+          <button id="btnAdd">글작성</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const btnAddEle = document.getElementById("btnAdd");
+
+      btnAddEle.addEventListener("click", (e) => {
+        location.href = "/boardtables/add";
+      });
+    </script>
+  </body>
+</html>

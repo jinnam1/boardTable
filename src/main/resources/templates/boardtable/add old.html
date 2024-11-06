@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>글작성</title>
+    <link rel="stylesheet" href="/css/add.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="header">
+        <h3>글 작성하기</h3>
+      </div>
+      <div class="main">
+        <form class="addform" action="" method="post">
+          <div class="form_header">
+            <div class="title_wrap">
+              <label for="">제목</label>
+              <input type="text" name="title" />
+            </div>
+            <div class="name_wrap">
+              <label for="">작성자</label>
+              <input type="text" name="userName" />
+            </div>
+          </div>
+          <div class="content_wrap">
+            <label for="">내용</label>
+            <input type="text" name="content" />
+          </div>
+          <div class="btn_wrap">
+            <button>저장</button>
+            <button
+              type="button"
+              onclick="window.location.href = '/boardtables'"
+            >
+              취소
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

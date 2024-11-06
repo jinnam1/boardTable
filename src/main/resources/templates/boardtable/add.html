@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>글작성</title>
+    <link rel="stylesheet" href="/css/boardtable/add.css" />
+    <link rel="stylesheet" href="/css/error.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="wrap_inner">
+        <div class="header">
+          <h3>글 작성하기</h3>
+        </div>
+        <div class="main">
+          <form
+            class="addform"
+            action=""
+            method="post"
+            id="addform"
+            th:object="${saveForm}"
+          >
+            <div class="form_header">
+              <div class="title_wrap">
+                <label for="title">제목</label>
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  th:value="${saveForm.title}"
+                />
+                <p class="err" id="errTitle"></p>
+                <p
+                  class="err"
+                  th:each="err:${#fields.errors('title')}"
+                  th:text="${err}"
+                ></p>
+              </div>
+              <div class="name_wrap">
+                <label for="userName">작성자</label>
+                <input
+                  type="text"
+                  name="userName"
+                  id="userName"
+                  th:value="${saveForm.userName}"
+                />
+                <p class="err" id="errUserN"></p>
+                <p
+                  class="err"
+                  th:each="err:${#fields.errors('userName')}"
+                  th:text="${err}"
+                ></p>
+              </div>
+            </div>
+            <div class="content_wrap">
+              <label for="content">내용</label>
+              <textarea
+                name="content"
+                id="content"
+                th:text="${saveForm.content}"
+              ></textarea>
+              <p class="err" id="errContent"></p>
+              <p
+                class="err"
+                th:each="err:${#fields.errors('content')}"
+                th:text="${err}"
+              ></p>
+            </div>
+            <div class="btn_wrap">
+              <button id="btnAdd">저장</button>
+              <button
+                type="button"
+                onclick="window.location.href = '/boardtables'"
+              >
+                취소
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      // 클라이언트 단계에서 하는 유효성 검사
+
+      // 모듈로 텍스트의 바이트 수를 계산하는 함수와 숫자가 맞는지에 대한 함수 import
+
+      import { getBytesSize } from "/js/common.js"; // 텍스트 바이트 반환
+
+      import { isNumeric } from "/js/common.js"; // 숫자가 맞다면 true 반환
+
+      // 저장
+      const btnAdd = document.getElementById("btnAdd");
+
+      btnAdd.addEventListener(
+        "click",
+        (e) => {
+          e.preventDefault(); //이벤트 잠시 막기
+
+          // 오류 메시지가 들어갈 부분 이벤트 발생시 초기화
+          errTitle.textContent = "";
+          errUserN.textContent = "";
+          errContent.textContent = "";
+
+          // 각 인풋값의 공백을 제거한 뒤에 value 추출
+          const titleVal = document.getElementById("title").value.trim();
+          const userNameVal = document.getElementById("userName").value.trim();
+          const contentVal = document.getElementById("content").value.trim();
+
+          // 제목 부분
+          if (titleVal.length == 0) {
+            errTitle.textContent = "제목 입력은 필수입니다.";
+            return;
+          } else if (getBytesSize(titleVal) > 60) {
+            errTitle.textContent =
+              "제목은 한글로 20자,영문으로 60자까지만 입력가능합니다";
+            return;
+          }
+          // 작성자 이름 부분
+          if (userNameVal.length == 0) {
+            errUserN.textContent = "작성자 입력은 필수입니다.";
+            return;
+          } else if (getBytesSize(userNameVal) > 30) {
+            errUserN.textContent =
+              "제목은 한글로 10자,영문으로 30자까지만 입력가능합니다";
+            return;
+          }
+          // 내용 부분
+          if (contentVal.length == 0) {
+            errContent.textContent = "내용 입력은 필수입니다.";
+            return;
+          }
+          // 오류가 나지 않았을 때
+          addform.submit();
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

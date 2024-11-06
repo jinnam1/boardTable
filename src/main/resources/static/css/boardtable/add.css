@@ -1,0 +1,110 @@
+@charset 'utf-8';
+
+/* css 리셋 */
+
+* {
+  /* outline: 1px solid red; */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: 0;
+  width: 45px;
+  height: 25px;
+  color: #fff;
+  background-color: #52e454;
+}
+
+/* 플랙스로 페이지 생성*/
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #efaab6;
+}
+
+.wrap .wrap_inner {
+  width: 70%;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+/* 제목 부분입니다 */
+
+.wrap .header {
+  display: flex;
+  width: 70vw;
+  justify-content: center;
+}
+
+/* 실제로 글작성을 하게 되는 부분입니다*/
+
+.wrap .main {
+  display: flex;
+  width: 70vw;
+  justify-content: center;
+}
+
+.wrap .main .addform {
+  width: 100%;
+}
+
+.wrap .main .addform .form_header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.wrap .main .addform .form_header .title_wrap {
+  margin-left: 50px;
+}
+
+.wrap .main .addform .form_header .title_wrap input[type="text"] {
+  width: 300px;
+}
+
+.wrap .main .addform .form_header .name_wrap {
+  margin-right: 50px;
+}
+
+.wrap .main .addform .content_wrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.wrap .main .addform .content_wrap textarea {
+  width: 93%;
+  height: 100px;
+  resize: none;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrap .main .addform .content_wrap,
+.wrap .main .addform .btn_wrap {
+  margin-left: 50px;
+}
+
+.wrap .main .addform .content_wrap input[type="text"] {
+  height: 30vh;
+}
+
+/* 버튼 부분의 위치 조정입니다*/
+
+.wrap .main .addform .btn_wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wrap .main .addform .btn_wrap button {
+  margin-right: 10px;
+}

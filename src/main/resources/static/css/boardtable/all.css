@@ -1,0 +1,107 @@
+@charset 'utf-8';
+
+/*css reset*/
+
+* {
+  /* outline: 1px solid red; */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: 0;
+  width: 45px;
+  height: 25px;
+  color: #fff;
+  background-color: #52e454;
+}
+
+/* .wrap  */
+
+.wrap {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background-color: #abeaac;
+}
+
+/* 보여줄 크기 조정*/
+.wrap .wrap_inner {
+  width: 70%;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+/* .header */
+
+.wrap .wrap_inner .header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+/* 테이블 열 크기 조정*/
+.wrap .wrap_inner .id {
+  width: 5%;
+}
+
+.wrap .wrap_inner .title {
+  width: 50%;
+}
+
+.wrap .wrap_inner .name {
+  width: 15%;
+}
+
+.wrap .wrap_inner .c_date {
+  width: 15%;
+}
+
+.wrap .wrap_inner .u_date {
+  width: 15%;
+}
+
+/* table 경계선 삭제*/
+#table {
+  padding: 30px 0 10px 0;
+  border-collapse: collapse;
+}
+
+#table th,
+#table td {
+  border: 1px solid black;
+}
+
+/* table 텍스트 중앙정렬*/
+#table * {
+  text-align: center;
+}
+
+/* 테이블 헤드쪽 배경색*/
+#head {
+  background-color: #eee;
+}
+
+/* a 태그에 대하여 reset*/
+a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+a:hover {
+  font-weight: bold;
+}
+
+.wrap .wrap_inner .btn_wrap {
+  align-self: flex-end;
+  padding-top: 20px;
+  padding-right: 30px;
+}

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 
 public class FindForm {
-  private Long userId;                //  유저ID USERID	NUMBER(10,0)
+  private Long bid;                //  유저ID bid	NUMBER(10,0)
   private String title;               //  제목 TITLE	VARCHAR2(60 BYTE)
   private String content;             //  내용 CONTENT	VARCHAR2(300 BYTE)
   private String userName;            //  유저명 USERNAME	VARCHAR2(30 BYTE)

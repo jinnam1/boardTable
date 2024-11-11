@@ -23,8 +23,8 @@ public class BoardTableSVCImpl implements BoardTableSVC{
 
   // 게시글 클릭 시 그 게시글 조회
   @Override
-  public BoardTable findById(Long userId) {
-    return boardTableDAO.findById(userId);
+  public BoardTable findById(Long bid) {
+    return boardTableDAO.findById(bid);
   }
 
   @Override
@@ -33,12 +33,12 @@ public class BoardTableSVCImpl implements BoardTableSVC{
   }
 
   @Override
-  public Long DeleteBoardTable(Long userId) {
-    return boardTableDAO.DeleteBoardTable(userId);
+  public Long DeleteBoardTable(Long bid) {
+    return boardTableDAO.DeleteBoardTable(bid);
   }
 
   @Override
-  public Long UpdateBoardTable(Long userId, BoardTable boardTable) {
-    return boardTableDAO.UpdateBoardTable(userId, boardTable);
+  public Long UpdateBoardTable(Long bid, BoardTable boardTable) {
+    return boardTableDAO.UpdateBoardTable(bid, boardTable);
   }
 }

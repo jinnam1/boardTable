@@ -40,7 +40,7 @@ public class BoardTableController {
     // entity 객체를 AllForm 객체로 변환 후 저장
     for (BoardTable boardTable : list) {
       AllForm allForm = new AllForm();
-      allForm.setUserId(boardTable.getUserId());
+      allForm.setBid(boardTable.getBid());
       allForm.setTitle(boardTable.getTitle());
       allForm.setContent(boardTable.getContent());
       allForm.setUserName(boardTable.getUserName());
@@ -59,20 +59,20 @@ public class BoardTableController {
 
   // 게시글 조회
   @GetMapping("/{id}/detail")
-  public String findById(@PathVariable("id") Long userId,
+  public String findById(@PathVariable("id") Long bid,
                          Model model) {
-    // 정상적으로 userId가 반환되는지 확인
-    log.info("userid = {}", userId);
+    // 정상적으로 bid 반환되는지 확인
+    log.info("bid = {}", bid);
 
 
-    // userId에 해당하는 게사글을 찾아서 반환 형식은 entity boardtable
-    BoardTable findedBoardTable = boardTableSVC.findById(userId);
+    // bid 해당하는 게사글을 찾아서 반환 형식은 entity boardtable
+    BoardTable findedBoardTable = boardTableSVC.findById(bid);
 
     // 찾아낸 게시글을 담기위한 FindForm 생성
     FindForm findForm = new FindForm();
 
     // BoardTable 객체를 findForm 객체에 할당
-    findForm.setUserId(findedBoardTable.getUserId());
+    findForm.setBid(findedBoardTable.getBid());
     findForm.setTitle(findedBoardTable.getTitle());
     findForm.setContent(findedBoardTable.getContent());
     findForm.setUserName(findedBoardTable.getUserName());
@@ -127,30 +127,30 @@ public class BoardTableController {
 
   // detail에서 삭제 버튼이 눌렸을 경우
   @GetMapping("/{id}/del")
-  public String Delete(@PathVariable("id") Long userId) {
+  public String Delete(@PathVariable("id") Long bid) {
 
-    log.info("userid = {}", userId);
+    log.info("bid = {}", bid);
 
-    boardTableSVC.DeleteBoardTable(userId);
+    boardTableSVC.DeleteBoardTable(bid);
 
     return "redirect:/boardtables";
   }
 
   // 상세 화면에서 아이디 정보를 가지고 와서 그걸 기반으로 수정 페이지로 이동
   @GetMapping("/{id}/update")
-  public String GoUpdate(@PathVariable("id") Long userId,
+  public String GoUpdate(@PathVariable("id") Long bid,
                          Model model) {
 
     // 아이디정보 제대로 들어왔는지 확인
-    log.info("userId ={}", userId);
+    log.info("bid ={}", bid);
 
     // 아이디 기반으로 데이터베이스에서 검색 후 수정할 대상으로 변경
-    BoardTable findBt = boardTableSVC.findById(userId);
+    BoardTable findBt = boardTableSVC.findById(bid);
 
     // 찾아낸 BoardTable 객체를 UpdateForm 객체에 옮겨 담는 작업
     UpdateForm updateForm = new UpdateForm();
 
-    updateForm.setUserId(findBt.getUserId());
+    updateForm.setBid(findBt.getBid());
     updateForm.setTitle(findBt.getTitle());
     updateForm.setUserName(findBt.getUserName());
     updateForm.setContent(findBt.getContent());
@@ -164,13 +164,13 @@ public class BoardTableController {
   }
 
   @PostMapping("/{id}/update")
-  public String UpdateById(@PathVariable("id") Long userId,
+  public String UpdateById(@PathVariable("id") Long bid,
                        @Valid@ModelAttribute UpdateForm updateForm,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes) {
 
-    // userId와 updateform이 잘 적용 되었는지 확인
-    log.info("userId ={}",userId);
+    // bid updateform이 잘 적용 되었는지 확인
+    log.info("bid ={}",bid);
     log.info("updateForm ={}",updateForm);
     
     
@@ -183,15 +183,15 @@ public class BoardTableController {
     
 
     BoardTable boardTable = new BoardTable();
-    boardTable.setUserId(updateForm.getUserId());
+    boardTable.setBid(updateForm.getBid());
     boardTable.setTitle(updateForm.getTitle());
     boardTable.setContent(updateForm.getContent());
     boardTable.setUserName(updateForm.getUserName());
     boardTable.setUpdatedAt(updateForm.getUpdatedAt());
 
-    Long rows = boardTableSVC.UpdateBoardTable(userId, boardTable);
+    Long rows = boardTableSVC.UpdateBoardTable(bid, boardTable);
 
-    redirectAttributes.addAttribute("id",userId);
+    redirectAttributes.addAttribute("id",bid);
 
 
     return "redirect:/boardtables/{id}/detail";

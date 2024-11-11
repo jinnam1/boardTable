@@ -10,14 +10,14 @@ public interface BoardTableDAO {
   public List<BoardTable> findAll();
 
   // 게시글 조회
-  public BoardTable findById(Long userId);
+  public BoardTable findById(Long bid);
 
   // 게시글 작성
   public Long AddBoardTable(BoardTable boardTable);
 
   // 게시글 삭제
-  public Long DeleteBoardTable(Long userId);
+  public Long DeleteBoardTable(Long bid);
 
   // 게시글 수정
-  public Long UpdateBoardTable(Long userId, BoardTable boardTable);
+  public Long UpdateBoardTable(Long bid, BoardTable boardTable);
 }

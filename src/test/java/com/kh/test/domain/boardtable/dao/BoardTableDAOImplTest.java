@@ -30,12 +30,12 @@ class BoardTableDAOImplTest {
   @Test
   @DisplayName("게시글 상세 보기")
   void findById() {
-    Long userid = 1L;
-    BoardTable boardTable = boardTableDAO.findById(userid);
+    Long bid = 1L;
+    BoardTable boardTable = boardTableDAO.findById(bid);
 
     log.info("boardTable = {}", boardTable);
 
-    Assertions.assertThat(boardTable.getUserId()).isEqualTo(1);
+    Assertions.assertThat(boardTable.getBid()).isEqualTo(1);
     Assertions.assertThat(boardTable.getUserName()).isEqualTo("윈터");
     Assertions.assertThat(boardTable.getTitle()).isEqualTo("일기");
 
@@ -67,9 +67,9 @@ class BoardTableDAOImplTest {
   @Test
   @DisplayName("게시글 삭제")
   void DeleteBoardTable(){
-    Long userId = 23L;
+    Long bid = 23L;
 
-    Long rows = boardTableDAO.DeleteBoardTable(userId);
+    Long rows = boardTableDAO.DeleteBoardTable(bid);
 
     Assertions.assertThat(rows).isEqualTo(1);
 
@@ -80,18 +80,18 @@ class BoardTableDAOImplTest {
   @DisplayName("게시글 수정")
   void UpdateBoardTable(){
 
-    Long userId = 50L;
+    Long bid = 50L;
     BoardTable boardTable = new BoardTable();
-    boardTable.setUserId(userId);
+    boardTable.setBid(bid);
     boardTable.setTitle("수정되었습니다");
     boardTable.setContent("수정되었습니다");
     boardTable.setUserName("수정되었습니다");
 
-    Long rows = boardTableDAO.UpdateBoardTable(userId, boardTable);
+    Long rows = boardTableDAO.UpdateBoardTable(bid, boardTable);
 
     log.info("rows = {}",rows);
 
-    BoardTable chkBT = boardTableDAO.findById(userId);
+    BoardTable chkBT = boardTableDAO.findById(bid);
 
     log.info("chkBT = {}" ,chkBT);
 

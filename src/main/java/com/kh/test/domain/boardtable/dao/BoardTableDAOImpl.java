@@ -29,9 +29,9 @@ public class BoardTableDAOImpl implements BoardTableDAO{
   public List<BoardTable> findAll() {
     //sql 쿼리 작성
     StringBuffer sql = new StringBuffer();
-    sql.append("select USERID , TITLE , CONTENT, USERNAME, CREATED_AT, UPDATED_AT ");
+    sql.append("select BID , TITLE , CONTENT, USERNAME, CREATED_AT, UPDATED_AT ");
     sql.append("    from boardtable ");
-    sql.append("    order by userid desc ");
+    sql.append("    order by bid desc ");
 
     //sql 쿼리 실행 및 레코드 추출 후 list 컬랙션에 삽입
     List<BoardTable> list = template.query(sql.toString(), BeanPropertyRowMapper.newInstance(BoardTable.class));
@@ -41,15 +41,15 @@ public class BoardTableDAOImpl implements BoardTableDAO{
   }
 
   @Override
-  public BoardTable findById(Long userId) {
+  public BoardTable findById(Long bid) {
     //sql 쿼리
     StringBuffer sql = new StringBuffer();
-    sql.append("select userid, title, content, username, created_at, updated_at ");
+    sql.append("select bid, title, content, username, created_at, updated_at ");
     sql.append("    from boardtable ");
-    sql.append("    where userid = :userId ");
+    sql.append("    where bid = :bid ");
 
-    // 현재 변수로 들어온  userid와 sql에 존재하는 userid와 매칭
-    SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
+    // 현재 변수로 들어온  bid sql에 존재하는 bid 매칭
+    SqlParameterSource param = new MapSqlParameterSource().addValue("bid",bid);
     
     // 매칭된 결과의 게시글의 정보를 추출
     BoardTable findedboardTable = template.queryForObject(sql.toString(), param, BeanPropertyRowMapper.newInstance(BoardTable.class));
@@ -62,8 +62,8 @@ public class BoardTableDAOImpl implements BoardTableDAO{
   public Long AddBoardTable(BoardTable boardTable) {
     //sql 쿼리
     StringBuffer sql = new StringBuffer();
-    sql.append("insert into boardtable(userid, title, content, username, created_at, updated_at) ");
-    sql.append("VALUES( boardtable_userid_seq.nextval, :title , :content , :userName , sysdate ,sysdate ) ");
+    sql.append("insert into boardtable(bid, title, content, username, created_at, updated_at) ");
+    sql.append("VALUES( boardtable_bid_seq.nextval, :title , :content , :userName , sysdate ,sysdate ) ");
 
     // sql column 값과 entity BoardTable 의 속성을 이름으로 매치
     SqlParameterSource param = new BeanPropertySqlParameterSource(boardTable);
@@ -72,28 +72,28 @@ public class BoardTableDAOImpl implements BoardTableDAO{
     KeyHolder keyHolder = new GeneratedKeyHolder();
 
     // param 의 매칭 정보를 기반으로 sql 쿼리문 실행 후 row 반환
-    // keyholder로 userid 저장
+    // keyholder로 bid 저장
     // rows가 1 이상일시 정상 수행
-    int rows = template.update(sql.toString(), param, keyHolder, new String[]{"userId"});
+    int rows = template.update(sql.toString(), param, keyHolder, new String[]{"bid"});
 
     // rows 정상 작동 확인
     log.info("rows = {}" , rows);
 
-    // keyholder에 저장된 userId 속성을 추츨후 Object 객체로 생성되지만 Number 로 형변환
-    Number uId = (Number) keyHolder.getKeys().get("userId");
+    // keyholder에 저장된 bid 속성을 추츨후 Object 객체로 생성되지만 Number 로 형변환
+    Number uId = (Number) keyHolder.getKeys().get("bid");
     long findId = uId.longValue();
 
     return findId;
   }
 
   @Override
-  public Long DeleteBoardTable(Long userId) {
+  public Long DeleteBoardTable(Long bid) {
     // sql 쿼리문 작성
     StringBuffer sql = new StringBuffer();
-    sql.append("delete from boardtable where userid = :userId ");
+    sql.append("delete from boardtable where bid = :bid ");
 
-    // :userId 에 userId 변수를 매칭하는 파라미터 소스 생성
-    SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+    // :bid 에 bid 변수를 매칭하는 파라미터 소스 생성
+    SqlParameterSource param = new MapSqlParameterSource().addValue("bid", bid);
 
     // sql 실행
     long rows = template.update(sql.toString(), param);
@@ -106,18 +106,18 @@ public class BoardTableDAOImpl implements BoardTableDAO{
   }
 
   @Override
-  public Long UpdateBoardTable(Long userId, BoardTable boardTable) {
+  public Long UpdateBoardTable(Long bid, BoardTable boardTable) {
     // sql 쿼리문 작성
     StringBuffer sql = new StringBuffer();
     sql.append("update boardtable ");
     sql.append("    set title = :title , content = :content , username = :userName , updated_at = sysdate ");
-    sql.append("    where userid = :userId ");
+    sql.append("    where bid = :bid ");
 
     // 파라미터소스(매칭정보) 생성
     SqlParameterSource param = new MapSqlParameterSource().addValue("title", boardTable.getTitle())
             .addValue("content", boardTable.getContent())
             .addValue("userName", boardTable.getUserName())
-            .addValue("userId", boardTable.getUserId());
+            .addValue("bid", boardTable.getBid());
 
     // sql 쿼리 실행 및 실행 수 반환
     long rows = template.update(sql.toString(), param);

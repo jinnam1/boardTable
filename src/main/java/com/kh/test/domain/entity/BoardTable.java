@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 
 public class BoardTable {
-  private Long userId;                //  게시글번호 USERID	NUMBER(10,0)
+  private Long bid;                //  게시글번호 bid	NUMBER(10,0)
   private String title;               //  제목 TITLE	VARCHAR2(60 BYTE)
   private String content;             //  내용 CONTENT	VARCHAR2(300 BYTE)
   private String userName;            //  유저명 USERNAME	VARCHAR2(30 BYTE)

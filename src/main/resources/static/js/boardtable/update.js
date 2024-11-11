@@ -52,7 +52,7 @@ btnSaveEle.addEventListener("click", (e) => {
 
 // 취소 버튼
 btnCancelEle.addEventListener("click", (e) => {
-  const updateIdEle = document.getElementById("userId");
+  const updateIdEle = document.getElementById("bid");
   location.href = `/boardtables/${updateIdEle.value}/detail`;
 });
 

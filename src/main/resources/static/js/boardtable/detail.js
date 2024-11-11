@@ -4,9 +4,9 @@ const btnAllEle = document.getElementById("btnAll");
 
 // 수정버튼
 btnUpdateEle.addEventListener("click", (e) => {
-  // 페이지에 있는 userId의 값을 가져와 해당 글의 업데이트 url로 이동
+  // 페이지에 있는 bid 값을 가져와 해당 글의 업데이트 url로 이동
   // get update는 해당 뷰로 이동
-  const updateIdEle = document.getElementById("userId");
+  const updateIdEle = document.getElementById("bid");
   location.href = `/boardtables/${updateIdEle.value}/update`;
 });
 
@@ -16,7 +16,7 @@ btnDeleteEle.addEventListener("click", (e) => {
   if (!confirm("삭제하시겠습니까")) return;
 
   // 확인 후 삭제 url로 이동
-  const updateIdEle = document.getElementById("userId");
+  const updateIdEle = document.getElementById("bid");
   location.href = `/boardtables/${updateIdEle.value}/del`;
 });
 

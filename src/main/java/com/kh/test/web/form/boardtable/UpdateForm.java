@@ -7,15 +7,15 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Setter
 @Getter
+@Setter
 @ToString
 
 public class UpdateForm {
   @NotNull(message = "예상치 못한 오류로 게시판고유번호가 입력되지않았습니다.")
   @Min(value = 1,message = "문제가 생겨 수동 입력시 1이상의 숫자를 입력해주세요")
   @Positive(message = "문제가 생겨 수동입력시 0이상의 숫자만 넣어주세요")
-  private Long userId;                //  유저ID USERID	NUMBER(10,0)
+  private Long bid;                //  유저ID bid	NUMBER(10,0)
 
   @NotBlank(message = "제목은 필수 입력 사항입니다.")
   @Size(max = 20, message = "제목은 한글로 20자를 넘어가면 안됩니다.")

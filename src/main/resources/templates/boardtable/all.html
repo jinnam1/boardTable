@@ -24,12 +24,12 @@
           </thead>
           <tbody th:each="allForm : ${allFormsList}" id="body">
             <tr>
-              <td class="id" th:text="${allForm.userId}">
+              <td class="id" th:text="${allForm.bid}">
                 게시글 번호가 들어갑니다
               </td>
               <td class="title">
                 <a
-                  th:href="@{/boardtables/{id}/detail(id=${allForm.userId})}"
+                  th:href="@{/boardtables/{id}/detail(id=${allForm.bid})}"
                   th:text="${allForm.title}"
                   >글제목이 들어갑니다</a
                 >

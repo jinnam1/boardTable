@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .comment {
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+      }
+      .comment * {
+        margin-bottom: 10px;
+      }
+      #userName {
+        width: 150px;
+      }
+      .container-btn {
+        align-self: flex-end;
+      }
+    </style>
+    <script type="module">
+      // ajax 호출
+      import { ajax } from "/main/resources/static/js/common.js";
+      // 사용할 함수 부터 정리
+
+      // 1. 댓글목록(원글의 아이디값을 가져와서 그 아이디값에 맞는 댓글리스트 호출)
+      const getReplyList = async (bid) => {
+        // bid값을 입력받아 그 원글리스트에 해당하는 url 생성
+        try {
+          const url = `http://localhost:9070/api/boardtables/${bid}/all`;
+
+          // ajax get 방식으로 json포맷의 결과물을 받은 뒤
+          // ajax 내부적으로 json 포맷의 결과물을 jsscript 포맷으로 변환을 거쳐 결과물 반환
+          // 현재의 result는 js 포맷
+          const result = await ajax.get(url);
+          console.log(result);
+          if (result.header.rtcd === "S00") {
+            displayReplyBbsList(result.body);
+          } else {
+            console.log(result.header.rtmsg);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+      const $list = document.createElement("div");
+      document.body.appendChild($list);
+
+      // 목록을 화면에 보여주기 위한 함수
+      function displayReplyBbsList(replyBbsList) {
+        // 일단 리스트를 받아와서 어떠한 형태에 담아서 보여줄수 있어야함
+        // result.body 에서 replyBbsList 객체를 받아와서 replyBbs 이 객체를 html 형태로 바꾸어서 만들어야함
+        const makeLi = (replyBbsList) => {
+          const $li = replyBbsList
+            .map(
+              (replyBbs) =>
+                `<li data-pid=${replyBbs.rid}>
+                <span>${replyBbs.username}</span>
+                <input type="text" name="" id="" value="${replyBbs.content}"></li>`
+            )
+            .join("");
+          return $li;
+        };
+      }
+
+      getReplyList(3);
+    </script>
+  </head>
+  <body>
+    <div class="container-comment">
+      <div class="comment">
+        <input type="text" name="userName" id="userName" />
+        <textarea cols="50" rows="5" name="content" id="content"></textarea>
+        <div class="container-btn">
+          <button>작성</button>
+          <button>취소</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

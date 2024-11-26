@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/boardtables")
+@RequestMapping("/api/replyBbs")
 
 
 public class ApiReplyBbsController {
@@ -89,18 +89,27 @@ public class ApiReplyBbsController {
 
   // 댓글 목록
   @GetMapping("/{bid}/all")
-  public ApiResponse<List<ReplyBbs>> all(@PathVariable("bid") Long bid){
+  public ApiResponse<List<ReplyBbs>> all(@PathVariable("bid") Long bid,
+                                         @RequestParam(value = "reqPage",defaultValue = "1") Integer reqPage,
+                                         @RequestParam(value = "reqRec",defaultValue = "10") Integer reqRec){
     // 게시판의 글번호가 잘들어오는지 확인
     log.info("bid = {}", bid);
-    
+    log.info("reqPage = {}", reqPage);
+    log.info("reqRec = {}", reqRec);
+
     // 응답 초기화
     ApiResponse<List<ReplyBbs>> res = null;
     
+    // 해당 게시판에 달려있는 댓글들의 총 갯수 반환
+    int totalRecords = replyBbsSVC.getTotalRecords(bid);
+
+
     // 해당 게시판 글번호에 해당하는 댓글들을 리스트에 추가
-    List<ReplyBbs> replyBbsList = replyBbsSVC.findAll(bid);
+    // 페이징을 추가
+    List<ReplyBbs> replyBbsList = replyBbsSVC.findAll(bid,reqPage,reqRec);
     
-    if (replyBbsList.size()!=0){
-      res = ApiResponse.of(ApiResponseCode.SUCCESS,replyBbsList);
+    if (replyBbsList.size() != 0){
+      res = ApiResponse.of(ApiResponseCode.SUCCESS,replyBbsList,totalRecords);
     }else {
       res = ApiResponse.of(ApiResponseCode.ENTITY_NOT_FOUND,null);
     }
@@ -179,5 +188,16 @@ public class ApiReplyBbsController {
 
     return res;
 
+  }
+
+  // 전체레코드수 가져오기
+  @GetMapping("/totalCnt/{bid}")
+  public ApiResponse<Integer> totalCnt(@PathVariable("bid") Long bid){
+    ApiResponse<Integer> res = null;
+    Integer totalRec =  replyBbsSVC.getTotalRecords(bid);
+
+    res = ApiResponse.of(ApiResponseCode.SUCCESS, null, totalRec);
+
+    return res;
   }
 }

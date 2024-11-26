@@ -46,6 +46,27 @@ class replyBbsDAOImpTest {
     log.info("finded = {}",finded);
   }
 
+
+  @Test
+  @DisplayName("더미 댓글 작성")
+  void addReplyDummy() {
+
+    for (int i = 0; i < 125; i++) {
+
+      ReplyBbs replybbs = new ReplyBbs();
+      replybbs.setContent("Dummy Content"+i);
+      replybbs.setUserName("DummyUser");
+      replybbs.setMemberId(21L);
+      Long bid = 162L;
+
+
+      Long rid = replyBbsDAO.addReply(replybbs, bid);
+
+      log.info("rid = {}",rid);
+    }
+
+  }
+
   @Test
   @DisplayName("댓글목록")
   void findAll(){

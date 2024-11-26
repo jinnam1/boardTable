@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>게시판 초기화면</title>
     <link rel="stylesheet" href="/css/boardtable/all.css" />
+    <script type="module">
+      import { PaginationUI } from "/js/common.js";
+
+      const btnAddEle = document.getElementById("btnAdd");
+
+      btnAddEle.addEventListener("click", (e) => {
+        location.href = "/boardtables/add";
+      });
+    </script>
   </head>
   <body>
     <div class="wrap">
@@ -49,14 +58,53 @@
         <div class="btn_wrap">
           <button id="btnAdd">글작성</button>
         </div>
+        <div class="pagination">
+          <nav>
+            <!-- 처음 버튼 -->
+            <button
+              th:if="${currentPageGroupStart > 1}"
+              th:onclick="|location.href='?reqPage=1&reqRec=${recordsPerPage}'|"
+            >
+              처음
+            </button>
+
+            <!-- 이전 버튼 -->
+            <button
+              th:if="${currentPageGroupStart > 1}"
+              th:onclick="|location.href='?reqPage=${currentPageGroupStart - pagesPerPage}&reqRec=${recordsPerPage}'|"
+            >
+              이전
+            </button>
+
+            <!-- 페이지 번호 -->
+            <span
+              th:each="pageNum : ${#numbers.sequence(currentPageGroupStart, currentPageGroupEnd)}"
+            >
+              <button
+                th:onclick="|location.href='?reqPage=${pageNum}&reqRec=${recordsPerPage}'|"
+                th:classappend="${pageNum == currentPage} ? 'active' : ''"
+                th:text="${pageNum}"
+              ></button>
+            </span>
+
+            <!-- 다음 버튼 -->
+            <button
+              th:if="${currentPageGroupEnd < totalPages}"
+              th:onclick="|location.href='?reqPage=${currentPageGroupStart + pagesPerPage}&reqRec=${recordsPerPage}'|"
+            >
+              다음
+            </button>
+
+            <!-- 끝 버튼 -->
+            <button
+              th:if="${currentPageGroupEnd < totalPages}"
+              th:onclick="|location.href='?reqPage=${totalPages}&reqRec=${recordsPerPage}'|"
+            >
+              끝
+            </button>
+          </nav>
+        </div>
       </div>
     </div>
-    <script>
-      const btnAddEle = document.getElementById("btnAdd");
-
-      btnAddEle.addEventListener("click", (e) => {
-        location.href = "/boardtables/add";
-      });
-    </script>
   </body>
 </html>

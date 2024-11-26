@@ -19,4 +19,6 @@ public class SaveForm {
   @NotBlank(message = "작성자는 필수로 입력해야 합니다")
   @Size(max = 10, message = "작성자는 한글로 20자를 넘어가면 안됩니다.")
   private String userName;            //  유저명 USERNAME	VARCHAR2(30 BYTE)
+
+  private Long memberId;                         //  MEMBER_ID	NUMBER
 }

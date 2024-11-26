@@ -17,9 +17,14 @@ public interface ReplyBbsSVC {
   // 댓글 목록
   public List<ReplyBbs> findAll(Long bid);
 
+  public List<ReplyBbs> findAll(Long bid,int reqPage,int reqRec);
+
   // 댓글 삭제
   public Long DeleteReply(Long rid);
   
   // 댓글 수정
   public Long UpdateReply(Long rid,ReplyBbs replyBbs);
+
+  // 총 레코드 건수 반환
+  public int getTotalRecords(Long bid);
 }

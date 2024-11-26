@@ -23,4 +23,6 @@ public class ReqSave {
   @NotBlank
   @Size(min = 1,max = 10)
   private String userName;            //  유저명 USERNAME	VARCHAR2(30 BYTE)
+
+  private Long memberId;                         //  MEMBER_ID	NUMBER
 }

@@ -30,9 +30,23 @@ public class BoardTableController {
 
   @GetMapping
   //초기 화면에서 기존에 sql에 저장되어 있는 게시판의 목록을 나열하는 메소드
-  public String Home(Model model) {
-    // 전체 조회
-    List<BoardTable> list = boardTableSVC.findAll();
+  public String Home(Model model,
+                     @RequestParam(value = "reqPage",defaultValue = "1")Integer reqPage,
+                     @RequestParam(value = "reqRec",defaultValue = "10")Integer reqRec) {
+
+    // 해당 테이블의 총 레코드 반환
+    int totalRecords = boardTableSVC.getTotalRecords(); // 총 레코드 수
+    int totalPages = (int) Math.ceil((double) totalRecords / reqRec); // 전체 페이지 수
+
+    // 현재 페이지의 정보를 토대로 레코드 반환
+    List<BoardTable> list = boardTableSVC.findAll(reqPage,reqRec);
+
+    // 현재 페이지 그룹 계산
+    int pagesPerPage = 10; // 한 페이지 그룹당 표시할 페이지 수
+    int currentPageGroupStart = ((reqPage - 1) / pagesPerPage) * pagesPerPage + 1;
+    int currentPageGroupEnd = Math.min(currentPageGroupStart + pagesPerPage - 1, totalPages);
+
+
 
     // AllForm 객체를 담는 리스트 생성
     List<AllForm> allFormsList = new ArrayList<>();
@@ -51,6 +65,14 @@ public class BoardTableController {
 
     // model을 이욜해 AllForm객체의 리스트를 뷰에 전달
     model.addAttribute("allFormsList", allFormsList);
+    // model을 이용해 뷰에서 사용할 페이징 정보를 전달
+    model.addAttribute("totalRecords", totalRecords);          // 총 레코드 수
+    model.addAttribute("currentPage", reqPage);                // 현재 페이지 번호
+    model.addAttribute("recordsPerPage", reqRec);              // 페이지당 레코드 수
+    model.addAttribute("pagesPerPage", pagesPerPage);          // 한 페이지 그룹 크기
+    model.addAttribute("currentPageGroupStart", currentPageGroupStart); // 페이지 그룹 시작
+    model.addAttribute("currentPageGroupEnd", currentPageGroupEnd);     // 페이지 그룹 끝
+    model.addAttribute("totalPages", totalPages);              // 전체 페이지 수
 
     // all.html 호출
     return "/boardtable/all";
@@ -78,6 +100,7 @@ public class BoardTableController {
     findForm.setUserName(findedBoardTable.getUserName());
     findForm.setCreatedAt(findedBoardTable.getCreatedAt());
     findForm.setUpdatedAt(findedBoardTable.getUpdatedAt());
+    findForm.setMemberId(findedBoardTable.getMemberId());
 
     // 만들어낸 findForm을 뷰로 전달
     model.addAttribute("findForm", findForm);
@@ -114,6 +137,7 @@ public class BoardTableController {
     boardTable.setTitle(saveForm.getTitle());
     boardTable.setContent(saveForm.getContent());
     boardTable.setUserName(saveForm.getUserName());
+    boardTable.setMemberId(saveForm.getMemberId());
 
     // 메소드 호출로 레코드 작성 후 생성된 레코드의 아이디 값 추출
     Long uid = boardTableSVC.AddBoardTable(boardTable);
@@ -156,6 +180,7 @@ public class BoardTableController {
     updateForm.setContent(findBt.getContent());
     updateForm.setCreatedAt(findBt.getCreatedAt());
     updateForm.setUpdatedAt(findBt.getUpdatedAt());
+    updateForm.setMemberId(findBt.getMemberId());
 
 
     model.addAttribute("updateForm", updateForm);

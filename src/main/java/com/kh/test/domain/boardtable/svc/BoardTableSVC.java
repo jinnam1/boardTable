@@ -10,6 +10,8 @@ public interface BoardTableSVC {
   // 초기 화면에서의 목록 조회
   public List<BoardTable> findAll();
 
+  public List<BoardTable> findAll(int reqPage, int reqRec);
+
   // 게시글 조회
   public BoardTable findById(Long bid);
 
@@ -21,4 +23,7 @@ public interface BoardTableSVC {
 
   // 게시글 수정
   public Long UpdateBoardTable(Long bid, BoardTable boardTable);
+
+  // 총 레코드 건수 반환
+  public int getTotalRecords();
 }

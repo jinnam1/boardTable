@@ -100,4 +100,50 @@ class BoardTableDAOImplTest {
     Assertions.assertThat(chkBT.getUserName()).isEqualTo("수정되었습니다");
 
   }
+
+
+  @Test
+  @DisplayName("게시글 더미데이터 복수 작성")
+  void AddBoardTables(){
+
+    for (int i = 0; i < 142; i++) {
+
+      BoardTable boardTable = new BoardTable();
+      boardTable.setTitle("Dummy title"+i);
+      boardTable.setContent("Dummy Content"+i);
+      boardTable.setUserName("DummyUser");
+      boardTable.setMemberId(21L);
+
+      Long findId = boardTableDAO.AddBoardTable(boardTable);
+
+      log.info("findId = {}" , findId);
+    }
+
+
+  }
+
+
+
+  @Test
+  @DisplayName("게시글 요철 목록")
+  void findAllreq() {
+
+    int reqPage = 2; // 요청페이지
+    int reqRec = 10; // 한ㅍ페이지당 보여줄 레코드 수
+    List<BoardTable> list = boardTableDAO.findAll(reqPage,reqRec);
+
+    for (BoardTable boardTable : list) {
+      log.info("boardTable : {}", boardTable);
+    }
+  }
+
+  @Test
+  @DisplayName("총 레코드 건수")
+  void getTotalRecord(){
+
+    int totalRecords = boardTableDAO.getTotalRecords();
+
+    log.info("totalRecords = {}",totalRecords);
+  }
+
 }

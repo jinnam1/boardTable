@@ -21,6 +21,11 @@ public class BoardTableSVCImpl implements BoardTableSVC{
     return boardTableDAO.findAll();
   }
 
+  @Override
+  public List<BoardTable> findAll(int reqPage, int reqRec) {
+    return boardTableDAO.findAll(reqPage,reqRec);
+  }
+
   // 게시글 클릭 시 그 게시글 조회
   @Override
   public BoardTable findById(Long bid) {
@@ -40,5 +45,10 @@ public class BoardTableSVCImpl implements BoardTableSVC{
   @Override
   public Long UpdateBoardTable(Long bid, BoardTable boardTable) {
     return boardTableDAO.UpdateBoardTable(bid, boardTable);
+  }
+
+  @Override
+  public int getTotalRecords() {
+    return boardTableDAO.getTotalRecords();
   }
 }

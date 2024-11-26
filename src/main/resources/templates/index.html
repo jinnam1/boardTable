@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>초기화면</title>
     <link rel="stylesheet" href="/css/boardtable/index.css" />
+    <style>
+      .field-err {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <div class="wrap">
@@ -24,12 +31,38 @@
             <a href="#">이곳은 다른 메뉴가 들어갈 공간입니다</a>
             <a href="#">이곳은 다른 메뉴가 들어갈 공간입니다</a>
           </div>
-          <div class="nav_account">
-            <div class="account_inner">
+          <div class="nav_account" th:if="${session.isEmpty()}">
+            <form
+              class="account_inner"
+              method="POST"
+              action="/login"
+              th:object="${loginForm}"
+            >
               <label for="id">아이디</label>
-              <input type="text" name="id" id="id" />
+              <input type="text" th:field="*{email}" />
+
               <label for="psw">비밀번호</label>
-              <input type="password" name="psw" id="psw" />
+              <input type="password" th:field="*{passwd}" />
+              <div class="field-err" th:each="err : ${#fields.errors('email')}">
+                <span th:text="${err}"></span>
+              </div>
+              <div
+                class="field-err"
+                th:each="err : ${#fields.errors('passwd')}"
+              >
+                <span th:text="${err}"></span>
+              </div>
+            </form>
+            <div>
+              <button id="join">회원가입</button>
+              <button id="login">로그인</button>
+            </div>
+          </div>
+          <div class="nav_account" th:if="${!session.isEmpty()}">
+            <span th:text="${session.loginMember.nickname}"></span
+            ><span>님 반갑습니다</span>
+            <div>
+              <button><a id="logout" href="/logout">로그아웃</a></button>
             </div>
           </div>
         </div>
@@ -73,5 +106,17 @@
         </div>
       </div>
     </div>
+
+    <script>
+      const $join = document.getElementById("join");
+      $join.addEventListener("click", (e) => {
+        document.location.href = `http://localhost:9070/join`;
+      });
+      const $login = document.getElementById("login");
+      $login.addEventListener("click", (e) => {
+        const $loginForm = document.querySelector(".account_inner");
+        $loginForm.submit();
+      });
+    </script>
   </body>
 </html>

@@ -38,12 +38,20 @@
                 ></p>
               </div>
               <div class="name_wrap">
+                <!-- 숨겨진 멤버 아이디 -->
+                <input
+                  type="hidden"
+                  name="memberId"
+                  id="memberId"
+                  th:value="${session.loginMember.memberId}"
+                />
                 <label for="userName">작성자</label>
                 <input
                   type="text"
                   name="userName"
                   id="userName"
-                  th:value="${saveForm.userName}"
+                  th:value="${session.loginMember.nickname}"
+                  readonly
                 />
                 <p class="err" id="errUserN"></p>
                 <p

@@ -16,4 +16,6 @@ public class FindForm {
   private String userName;            //  유저명 USERNAME	VARCHAR2(30 BYTE)
   private LocalDateTime createdAt;    //  작성날짜 CREATED_AT	DATE
   private LocalDateTime updatedAt;     //  수정날짜 UPDATED_AT	DATE
+  private Long memberId;                         //  MEMBER_ID	NUMBER
+
 }

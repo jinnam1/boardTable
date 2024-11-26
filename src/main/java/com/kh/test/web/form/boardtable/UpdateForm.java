@@ -34,4 +34,6 @@ public class UpdateForm {
 
   @NotNull(message = "예상치 못한 오류로 수정날짜가 입력되지않았습니다.")
   private LocalDateTime updatedAt;     //  수정날짜 UPDATED_AT	DATE
+
+  private Long memberId;                         //  MEMBER_ID	NUMBER
 }

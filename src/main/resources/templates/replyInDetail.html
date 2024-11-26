@@ -29,7 +29,7 @@
       const getReplyList = async (bid) => {
         // bid값을 입력받아 그 원글리스트에 해당하는 url 생성
         try {
-          const url = `http://localhost:9070/api/boardtables/${bid}/all`;
+          const url = `http://localhost:9070/api/replyBbs/${bid}/all`;
 
           // ajax get 방식으로 json포맷의 결과물을 받은 뒤
           // ajax 내부적으로 json 포맷의 결과물을 jsscript 포맷으로 변환을 거쳐 결과물 반환
@@ -57,7 +57,7 @@
           const $li = replyBbsList
             .map(
               (replyBbs) =>
-                `<li data-pid=${replyBbs.rid}>
+                `<li data-rid=${replyBbs.rid}>
                 <span>${replyBbs.username}</span>
                 <input type="text" name="" id="" value="${replyBbs.content}"></li>`
             )
@@ -67,18 +67,60 @@
       }
 
       getReplyList(3);
+
+      // 댓글 작성하는 함수와 화면 구축
+      // 댓글을 작성할 폼을 감쌀 wrap 생성
+      const $addCommentFormWrap = document.createElement("div");
+      $addCommentFormWrap.innerHTML = `
+        <form id="commentForm">
+          <div class="comment">
+            <input
+              type="text"
+              name="userName"
+              id="userName"
+              value="홍길동"
+              readonly
+            />
+            <textarea name="content" id="content"></textarea>
+            <div class="container-btn">
+              <button class="addBtn">작성</button>
+              <button class="resetBtn">취소</button>
+            </div>
+          </div>
+        </form>
+      `;
+      //여기서 값을 받아서 json객체로 변환할 객체로 전환
+      document
+        .querySelector(".btn_wrap")
+        .insertAdjacentElement("afterend", $addCommentFormWrap);
+      // 일단 함수부터 만듬
+      const addReply = async (payload) => {
+        try {
+          // api replyBbs에 접속하기 위한 url 생성
+          const url = `http://localhost:9070/api/replyBbs/add`;
+
+          //ajax post 방식으로 내가 작성한 댓글의 정보를 json포맷으로 변환 후 전송
+          const result = await ajax.post(url, payload);
+          console.log(result);
+          if (result.header.rtcd === "S000") {
+            // 성공 했으니까 리스트를 다시 한번 반환하고
+            // 입력값을 다 초기화해야한다.
+            // 여기서 생성된 객체를 보여준다.
+            console.log(result.body);
+            // 폼 초기화를 해야한다.
+            commentForm.reset();
+            // 목록을 새로 불러온다.
+            getReplyList(bid);
+          }
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
+
+      function displayAddReplyBbs() {}
     </script>
   </head>
   <body>
-    <div class="container-comment">
-      <div class="comment">
-        <input type="text" name="userName" id="userName" />
-        <textarea cols="50" rows="5" name="content" id="content"></textarea>
-        <div class="container-btn">
-          <button>작성</button>
-          <button>취소</button>
-        </div>
-      </div>
-    </div>
+    <button class="btn btnEdit btnCreate"></button>
   </body>
 </html>

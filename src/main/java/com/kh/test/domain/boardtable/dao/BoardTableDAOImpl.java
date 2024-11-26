@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Repository
@@ -41,10 +42,24 @@ public class BoardTableDAOImpl implements BoardTableDAO{
   }
 
   @Override
+  public List<BoardTable> findAll(int reqPage, int reqRec) {
+  StringBuffer sql = new StringBuffer();
+    sql.append("select bid, title, content, username, created_at, updated_at, member_id ");
+    sql.append("from boardtable ");
+    sql.append("order by bid desc ");
+    sql.append("offset ( :reqPage-1 ) * :reqRec rows fetch first :reqRec rows only ");
+
+    Map<String,Integer> param = Map.of("reqPage",reqPage,"reqRec",reqRec);
+    List<BoardTable> list = template.query(sql.toString(), param , BeanPropertyRowMapper.newInstance(BoardTable.class));
+
+    return list;
+  }
+
+  @Override
   public BoardTable findById(Long bid) {
     //sql 쿼리
     StringBuffer sql = new StringBuffer();
-    sql.append("select bid, title, content, username, created_at, updated_at ");
+    sql.append("select bid, title, content, username, created_at, updated_at, member_id ");
     sql.append("    from boardtable ");
     sql.append("    where bid = :bid ");
 
@@ -62,8 +77,8 @@ public class BoardTableDAOImpl implements BoardTableDAO{
   public Long AddBoardTable(BoardTable boardTable) {
     //sql 쿼리
     StringBuffer sql = new StringBuffer();
-    sql.append("insert into boardtable(bid, title, content, username, created_at, updated_at) ");
-    sql.append("VALUES( boardtable_bid_seq.nextval, :title , :content , :userName , sysdate ,sysdate ) ");
+    sql.append("insert into boardtable(bid, title, content, username, created_at, updated_at , member_id) ");
+    sql.append("VALUES( boardtable_bid_seq.nextval, :title , :content , :userName , sysdate ,sysdate ,:memberId) ");
 
     // sql column 값과 entity BoardTable 의 속성을 이름으로 매치
     SqlParameterSource param = new BeanPropertySqlParameterSource(boardTable);
@@ -124,5 +139,13 @@ public class BoardTableDAOImpl implements BoardTableDAO{
 
 
     return rows;
+  }
+
+  @Override
+  public int getTotalRecords() {
+    String sql = ("select count(*) from boardtable ");
+
+
+    return template.queryForObject(sql, Map.of(), Integer.class);
   }
 }

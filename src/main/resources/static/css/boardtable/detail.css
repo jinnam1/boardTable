@@ -7,6 +7,9 @@
   margin: 0;
   padding: 0;
 }
+ul {
+  list-style-type: none;
+}
 
 button {
   border: 0;
@@ -54,6 +57,7 @@ input[type="text"] {
 
 .wrap .container .id_wrap {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 10px;
 }
@@ -93,4 +97,55 @@ input[type="text"] {
 
 .wrap .container .btn_wrap {
   align-self: flex-end;
+}
+/* 댓글 작성 부분에 대한 css*/
+
+#commentForm {
+  margin-top: 15px;
+}
+.comment {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.comment * {
+  margin-bottom: 10px;
+}
+#content {
+  width: 100%;
+  height: 70px;
+  resize: none;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+}
+#userName {
+  width: 150px;
+}
+.container-btn {
+  align-self: flex-end;
+}
+
+/* 댓글 목록이 표시 되는 곳에 대한 css*/
+.wrap .container .wrapList {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.wrap .container .wrapList .wrapReply {
+  margin-top: 10px;
+}
+
+.wrap .container .wrapList .wrapReply .uName {
+  font-size: 0.85rem;
+}
+
+.wrap .container .wrapList .wrapReply .content {
+  width: 80%;
+}
+.wrap .container .wrapList .wrapReply button {
+  border: 0;
+  width: 35px;
+  height: 20px;
+  color: #fff;
+  background-color: #59555537;
 }

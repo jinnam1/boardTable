@@ -32,6 +32,12 @@ public class ReplyBbsSVCImp implements ReplyBbsSVC {
   public List<ReplyBbs> findAll(Long bid) {
     return replybbsDAO.findAll(bid);
   }
+
+  @Override
+  public List<ReplyBbs> findAll(Long bid, int reqPage, int reqRec) {
+    return replybbsDAO.findAll(bid,reqPage,reqRec);
+  }
+
   // 댓글 삭제
   @Override
   public Long DeleteReply(Long rid) {
@@ -41,5 +47,10 @@ public class ReplyBbsSVCImp implements ReplyBbsSVC {
   @Override
   public Long UpdateReply(Long rid,ReplyBbs replyBbs) {
     return replybbsDAO.UpdateReply(rid,replyBbs);
+  }
+
+  @Override
+  public int getTotalRecords(Long bid) {
+    return replybbsDAO.getTotalRecords(bid);
   }
 }

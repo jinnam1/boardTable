@@ -5,10 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원가입</title>
     <style>
+      /* 전체 화면 스타일 */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      /* 폼 컨테이너 스타일 */
+      form {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      h3 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        display: block;
+        color: #555;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 90%;
+        padding: 0.8rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        border-color: #5b9bd5;
+        box-shadow: 0 0 5px rgba(91, 155, 213, 0.5);
+      }
+
       .field-err {
         font-size: 0.8rem;
         font-weight: bold;
         color: red;
+        margin-bottom: 1rem;
+      }
+
+      .btn-wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      button {
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button[type="submit"] {
+        background-color: #5b9bd5;
+        color: white;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #4a89c9;
+      }
+
+      button[type="button"] {
+        background-color: #ddd;
+        color: #333;
+      }
+
+      button[type="button"]:hover {
+        background-color: #bbb;
       }
     </style>
   </head>
